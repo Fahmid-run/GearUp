@@ -1,0 +1,21 @@
+import { config } from "dotenv";
+import path from "node:path";
+
+config({
+  path:path.join(process.cwd(),".env")
+})
+
+
+const constants = {
+  Port: process.env.PORT,
+  Base_Url: process.env.APP_URL,
+  DB_Url: process.env.DATABASE_URL,
+  APP_URL: process.env.APP_URL,
+  BCRYPT_SALT_ROUNDS: process.env.BCRYPT_SALT_ROUNDS,
+  JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET!,
+  JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET!,
+  JWT_ACCESS_EXPIRES_IN: process.env.JWT_ACCESS_EXPIRES_IN!,
+  JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN!,
+};
+
+export default constants
