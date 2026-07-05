@@ -1,5 +1,18 @@
-enum ROLE{
+enum role {
   Customer
   Provider
   Admin
 }
+
+enum User_Role {
+  suspend
+  activate
+}
+
+
+enum Rental_Status {
+  confirm
+  mark_picked_up
+  mark_returned
+}
+

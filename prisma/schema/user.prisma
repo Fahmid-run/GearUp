@@ -2,6 +2,13 @@ model User{
 
   id String @id @default(uuid())
   name String 
+  email String @unique 
+  password String
+  phone String @unique
+  role role @default(Customer)
+  profile_photo String?
+
+
 
   @@map("user")
 }
