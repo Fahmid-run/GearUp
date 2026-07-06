@@ -4,6 +4,7 @@ import cors from "cors"
 import { errorHandler } from "./middlewares/globalErrorHandler"
 import AppError from "./utils/appError"
 import httpstatus from "http-status"
+import { authRoute } from "./modules/auth/auth.route"
 
 
 
@@ -30,14 +31,10 @@ app.use((req, res, next) => {
 app.use(errorHandler);
 
 
-app.get('/test', async (req, res) => {
-  if (true) {
-    throw new AppError('LLduaaaa', 404);
-  }
-  res.send('OK');
-});
 
 
+
+app.use("/api/auth",authRoute)
 
 
 

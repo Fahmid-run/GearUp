@@ -4,15 +4,40 @@ enum role {
   Admin
 }
 
-enum User_Role {
-  suspend
-  activate
+enum User_Status {
+   ACTIVE
+  SUSPENDED
 }
 
 
 enum Rental_Status {
-  confirm
-  mark_picked_up
-  mark_returned
+  PLACED
+  CONFIRMED
+  PAID
+  PICKED_UP
+  RETURNED
+  CANCELLED
 }
 
+enum Category {
+  cycling
+  camping
+  fitness 
+  water 
+  sports
+}
+enum GearAvailability {
+  AVAILABLE
+  UNAVAILABLE
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum PaymentProvider {
+  STRIPE
+  SSLCOMMERZ
+}

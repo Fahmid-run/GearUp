@@ -7,6 +7,14 @@ model User{
   phone String @unique
   role role @default(Customer)
   profile_photo String?
+  address String?
+  status User_Status @default(ACTIVE)
+  Provider Provider?
+  Customer Customer?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 
 
 
