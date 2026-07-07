@@ -6,6 +6,7 @@ import { prisma } from '../../lib/prisma';
 import AppError from '../../utils/appError';
 import { checkExists } from '../../utils/checkExist';
 import httpstatus from 'http-status';
+import { sendResponse } from '../../utils/sendResponse';
 interface IGearItem {
   name: string;
   description: string;
@@ -103,7 +104,7 @@ const updateGearItemById = async (
 
 const deleteGearItemById = async (
   gearItemId: string,
-  providerId: string,
+  providerId: string
 ) => {
   const gearItem = await checkExists(
     prisma.gearItems,
@@ -128,8 +129,52 @@ const deleteGearItemById = async (
 };
 
 
-export const gearItemService = {
+const upcomingRentalOrder = async (providerId: string) => {
+  checkExists(prisma.provider, providerId, 'User does not exists');
+
+  const result = await prisma.rentalOrder.findMany({
+    where: {
+      gearItem: {
+        providerId
+      }
+    },
+  });
+
+  return result;
+};
+
+const updateRentalORderStatus = async (
+  rentalOrderId: string,
+  providerId: string,
+  paylaod:any,
+) => {
+  const rentalOrder = await checkExists(
+    prisma.rentalOrder,
+    rentalOrderId,
+    'Rental Order does not exists',
+  );
+
+  const isOwner = providerId === rentalOrder.providerId;
+
+  if (!isOwner) {
+    throw new AppError('Forbidden Access', httpstatus.FORBIDDEN);
+  }
+
+  const result = await prisma.rentalOrder.update({
+    where: {
+      id: rentalOrderId,
+    }, data: {
+      ...paylaod
+    }
+  });
+
+  return result;
+};
+
+export const providerService = {
   addGearItem,
   updateGearItemById,
   deleteGearItemById,
+  upcomingRentalOrder,
+  updateRentalORderStatus,
 };

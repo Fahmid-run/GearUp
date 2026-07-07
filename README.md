@@ -6,7 +6,7 @@ Provider Management
  <!--! post  -->
  <!--! put  -->
  <!--! delete  -->
- <!-- ?get orders -->
+ <!-- !get orders for provider -->
 <!--? update rental order status -->
 
 Reviews

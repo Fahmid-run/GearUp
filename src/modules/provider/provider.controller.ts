@@ -1,6 +1,6 @@
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
-import { gearItemService } from "./provider.service";
+import { providerService } from './provider.service';
 import httpstatus from "http-status"
 const addGearItems = catchAsync(async (req, res, next) => {
   
@@ -8,7 +8,7 @@ const addGearItems = catchAsync(async (req, res, next) => {
   const providerId = req.user?.authorId as string
 
 
-  const result = await gearItemService.addGearItem(providerId, payload);
+  const result = await providerService.addGearItem(providerId, payload);
   
 
   sendResponse(res,{
@@ -25,8 +25,9 @@ const updateGearItemById = catchAsync(async (req, res, next) => {
   const providerId = req.user?.authorId as string;
   const gearItemId= req.params?.gearItemId as string
 
-  const result = await gearItemService.updateGearItemById(
-    gearItemId,providerId,
+  const result = await providerService.updateGearItemById(
+    gearItemId,
+    providerId,
     payload,
   );
 
@@ -43,7 +44,7 @@ const deleteGearItemById = catchAsync(async (req, res, next) => {
   const providerId = req.user?.authorId as string;
   const gearItemId = req.params?.gearItemId as string;
 
-  const result = await gearItemService.deleteGearItemById(
+  const result = await providerService.deleteGearItemById(
     gearItemId,
     providerId,
   );
@@ -57,8 +58,41 @@ const deleteGearItemById = catchAsync(async (req, res, next) => {
 });
 
 
+const upcomingRentalOrder = catchAsync(async (req, res, next) => {
+
+  const providerId = req.user?.authorId as string;
+
+
+  const result = await providerService.upcomingRentalOrder(providerId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpstatus.CREATED,
+    message: 'Rental Order Retreieved Successfully',
+    data: result,
+  });
+})
+
+
+
+const updateRentalORderStatus = catchAsync(async (req, res, next) => {
+  const providerId = req.user?.authorId as string;
+
+  const result = await providerService.upcomingRentalOrder(providerId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpstatus.CREATED,
+    message: 'Rental Order Status  Updated Successfully',
+    data: result,
+  });
+});
+
+
 export const providerController = {
   addGearItems,
   updateGearItemById,
   deleteGearItemById,
+  upcomingRentalOrder,
+  updateRentalORderStatus,
 };

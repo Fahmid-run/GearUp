@@ -48,7 +48,22 @@ accessToken,refreshToken    },
   });
 });
 
+const getMyProfile = catchAsync(async (req, res, next) => {
+  const id = req.user?.id as string;
+  const email = req.user?.email as string;
+
+  const user = await authService.getMyProfileFromdDb(id,email);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.CREATED,
+    message: 'User Retreived Successfully',
+    data: user,
+  });
+});
+
+
 
 export const authController = {
-  registerUser,loginUser
+  registerUser,loginUser, getMyProfile
 }

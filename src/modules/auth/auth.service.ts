@@ -47,7 +47,6 @@ const registerUserInDB = async (payload: IRegisterPaylaod) => {
   return result;
 };
 
-const getUserFromdDb = () => {};
 
 const loginUser = async ({
   email,password
@@ -140,8 +139,27 @@ const refreshToken = async (refreshToken: string) => {
 
 
 
+const getMyProfileFromdDb = async (id:string, email:string) => {
+
+  const result = await prisma.user.findUnique({
+    where: {
+      id,email
+    },
+    omit: {
+      password:true
+    },
+    include: {
+      Customer: true,
+      Provider:true
+    }
+  })
+  return result
+
+};
+
+
 export const authService = {
   registerUserInDB,
-  getUserFromdDb,
+  getMyProfileFromdDb,
   loginUser,
 };
