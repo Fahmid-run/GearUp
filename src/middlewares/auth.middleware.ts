@@ -12,6 +12,7 @@ declare global {
   namespace Express {
     interface Request {
       user?: {
+        authorId:string;
         name: string;
         email: string;
         id: string;
@@ -23,7 +24,7 @@ declare global {
 
 
 
-const auth = (...requiredRoles: any[])=> {
+export const auth = (...requiredRoles: any[])=> {
   return catchAsync(async (req, res, next) => {
 
 
@@ -43,7 +44,7 @@ const auth = (...requiredRoles: any[])=> {
          throw new AppError("Failed", httpStatus.NOT_FOUND);
        }
     
-    const { email, name, id, role } = verifyTOken.payload as JwtPayload;
+    const { email, name, id, role,authorId } = verifyTOken.payload as JwtPayload;
 
     if (requiredRoles.length && !requiredRoles.includes(role)) {
       throw new AppError("Forbidden access ", httpStatus.FORBIDDEN)
@@ -64,6 +65,7 @@ const auth = (...requiredRoles: any[])=> {
     }
 
     req.user = {
+      authorId,
       name,
       email,
       id,

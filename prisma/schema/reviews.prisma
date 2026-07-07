@@ -12,9 +12,5 @@ model Reviews{
   updatedAt DateTime @updatedAt
 
   @@unique([customerId, gearItemId])
-
-
-
-
   @@map("reviews")
 }

@@ -106,7 +106,7 @@ CREATE TABLE "user" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "phone" TEXT NOT NULL,
+    "phone" TEXT,
     "role" "role" NOT NULL DEFAULT 'Customer',
     "profile_photo" TEXT,
     "address" TEXT,

@@ -5,6 +5,9 @@ import { errorHandler } from "./middlewares/globalErrorHandler"
 import AppError from "./utils/appError"
 import httpstatus from "http-status"
 import { authRoute } from "./modules/auth/auth.route"
+import { providerController } from "./modules/provider/provider.controller"
+import { providerROute } from "./modules/provider/provider.route"
+import { reviewRoute } from "./modules/Reviews/Review"
 
 
 
@@ -24,8 +27,13 @@ app.get('/', (req, res) => {
   res.end('hello root');
 });
 
-
+//auth route
 app.use('/api/auth', authRoute);
+//provider route
+app.use('/api/provider', providerROute);
+//review route
+app.use('/api/reviews', reviewRoute);
+
 
 
 

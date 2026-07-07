@@ -56,7 +56,10 @@ const loginUser = async ({
   const isUserExists = await prisma.user.findUnique({
     where: {
       email
-    },
+    }, include: {
+      Customer: true,
+      Provider:true
+    }
   });
 
   if (!isUserExists) {
@@ -72,12 +75,12 @@ const loginUser = async ({
 
 
   const JwtPayload = {
-    id: isUserExists.id,
+    id:isUserExists.id,
     name: isUserExists.name,
     email: isUserExists.email,
-    password: isUserExists.password,
-    role:isUserExists.role
-  }
+    role: isUserExists.role,
+    authorId: isUserExists.Customer?.id || isUserExists.Provider?.id
+  };
 
   const accessToken = createJwt(
     JwtPayload,
