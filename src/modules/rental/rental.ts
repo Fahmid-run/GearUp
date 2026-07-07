@@ -1,44 +1,103 @@
-import { Request, Response, Router } from "express";
-import { catchAsync } from "../../utils/catchAsync";
-import { checkExists } from "../../utils/checkExist";
-import { register } from "node:module";
-import { prisma } from "../../lib/prisma";
-import { removeAllListeners } from "node:cluster";
-import { role } from "../../../prisma/generated/prisma/enums";
-import { sendResponse } from "../../utils/sendResponse";
-import httpstatus from "http-status"
-import { auth } from "../../middlewares/auth.middleware";
+import { Request, Response, Router } from 'express';
+import { catchAsync } from '../../utils/catchAsync';
+import { checkExists } from '../../utils/checkExist';
+import { register } from 'node:module';
+import { prisma } from '../../lib/prisma';
+import { removeAllListeners } from 'node:cluster';
+import { role } from '../../../prisma/generated/prisma/enums';
+import { sendResponse } from '../../utils/sendResponse';
+import httpstatus from 'http-status';
+import { auth } from '../../middlewares/auth.middleware';
 
+const route = Router();
 
-const route = Router()
+route.post(
+  '/:gearItemId',
+  auth(role.Customer),
+  catchAsync(async (req: Request, res: Response) => {
+    const customerId = req.user?.authorId;
+    const gearItemId = req.params?.gearItemId as string;
+    const { startDate, endDate, totalAmount } = req.body;
+    checkExists(prisma.customer, customerId, 'User does not exists');
 
+    const result = await prisma.rentalOrder.create({
+      data: {
+        customerId,
+        gearItemId,
+        startDate,
+        endDate,
+        totalAmount,
+      },
+    });
 
-route.post("/",auth(role.Customer), catchAsync(async (req: Request, res: Response) => {
-  
-  const customerId = req.user?.authorId;
-  const gearItemId= req.params?.gearItemId as string
-  const { review, rating } = req.body;
-  checkExists(prisma.customer, customerId, "User does not exists")
-  
+    sendResponse(res, {
+      success: true,
+      statusCode: httpstatus.CREATED,
+      message: 'Rental Order Places Successfully',
+      data: result,
+    });
+  }),
+);
 
-  const result = await prisma.reviews.create({
-    data: {
-      review,
-      rating,
-      customerId,
-      gearItemId
+route.get(
+  '/',
+  auth(role.Customer, role.Provider),
+  catchAsync(async (req: Request, res: Response) => {
+    const userId = req.user?.authorId;
+    checkExists(prisma.customer, userId, 'User does not exists');
+
+    const userRole = req.user?.role as role;
+    if (userRole === role.Customer) {
+      const resultForCustomer = await prisma.rentalOrder.findMany({
+        where: {
+          customerId: userId,
+        },
+      });
+
+      sendResponse(res, {
+        success: true,
+        statusCode: httpstatus.CREATED,
+        message: 'Rental Order Retreieved Successfully',
+        data: resultForCustomer,
+      });
+    } else {
+      const resultForProvider = await prisma.rentalOrder.findMany({
+        where: {
+          gearItem: {
+            providerId: userId,
+          },
+        },
+      });
+
+      sendResponse(res, {
+        success: true,
+        statusCode: httpstatus.CREATED,
+        message: 'Rental Order Retreieved Successfully',
+        data: resultForProvider,
+      });
     }
-  });
-
-  
-  sendResponse(res, {
-    success: true,
-    statusCode: httpstatus.CREATED,
-    message: 'Review Created Successfully',
-    data:result,
-  });
-
-}))
+  }),
+);
 
 
-export const rentalRoute= route
+route.get(
+  '/:rentalId',
+  auth(role.Customer, role.Provider),
+  catchAsync(async (req: Request, res: Response) => {
+    const rentalId= req.params?.rentalId as string
+
+    const result = await prisma.rentalOrder.findUnique({
+      where: {
+        id: rentalId,
+      },
+    });
+
+     sendResponse(res, {
+       success: true,
+       statusCode: httpstatus.CREATED,
+       message: 'Rental Order Retreived Successfully',
+       data: result,
+     });
+  }),
+);
+export const rentalRoute = route;

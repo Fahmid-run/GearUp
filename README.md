@@ -20,9 +20,15 @@ Authentication
 
 Rental Orders
 
-<!--  create rental order -->
-<!-- get rental orders  -->
-<!-- get rental order by id  -->
+<!--!  create rental order -->
+<!-- !get rental orders  -->
+<!-- !get rental order by id  -->
+
+Gear (Public)
+
+<!-- get all gears -->
+<!-- get gear by id -->
+<!-- get gear categories -->
 
 
 

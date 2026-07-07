@@ -9,9 +9,9 @@ model RentalOrder{
   customer Customer @relation(fields: [customerId], references: [id])   
   payments Payment[]
 
-  startDate DateTime
+  startDate String
 
-  endDate DateTime
+  endDate String
 
   totalAmount Float
 

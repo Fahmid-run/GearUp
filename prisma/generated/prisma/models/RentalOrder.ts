@@ -39,8 +39,8 @@ export type RentalOrderMinAggregateOutputType = {
   rentalStatus: $Enums.Rental_Status | null
   gearItemId: string | null
   customerId: string | null
-  startDate: Date | null
-  endDate: Date | null
+  startDate: string | null
+  endDate: string | null
   totalAmount: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -51,8 +51,8 @@ export type RentalOrderMaxAggregateOutputType = {
   rentalStatus: $Enums.Rental_Status | null
   gearItemId: string | null
   customerId: string | null
-  startDate: Date | null
-  endDate: Date | null
+  startDate: string | null
+  endDate: string | null
   totalAmount: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -208,8 +208,8 @@ export type RentalOrderGroupByOutputType = {
   rentalStatus: $Enums.Rental_Status
   gearItemId: string
   customerId: string
-  startDate: Date
-  endDate: Date
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt: Date
   updatedAt: Date
@@ -243,8 +243,8 @@ export type RentalOrderWhereInput = {
   rentalStatus?: Prisma.EnumRental_StatusFilter<"RentalOrder"> | $Enums.Rental_Status
   gearItemId?: Prisma.StringFilter<"RentalOrder"> | string
   customerId?: Prisma.StringFilter<"RentalOrder"> | string
-  startDate?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
-  endDate?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
+  startDate?: Prisma.StringFilter<"RentalOrder"> | string
+  endDate?: Prisma.StringFilter<"RentalOrder"> | string
   totalAmount?: Prisma.FloatFilter<"RentalOrder"> | number
   createdAt?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
@@ -276,8 +276,8 @@ export type RentalOrderWhereUniqueInput = Prisma.AtLeast<{
   rentalStatus?: Prisma.EnumRental_StatusFilter<"RentalOrder"> | $Enums.Rental_Status
   gearItemId?: Prisma.StringFilter<"RentalOrder"> | string
   customerId?: Prisma.StringFilter<"RentalOrder"> | string
-  startDate?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
-  endDate?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
+  startDate?: Prisma.StringFilter<"RentalOrder"> | string
+  endDate?: Prisma.StringFilter<"RentalOrder"> | string
   totalAmount?: Prisma.FloatFilter<"RentalOrder"> | number
   createdAt?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
@@ -311,8 +311,8 @@ export type RentalOrderScalarWhereWithAggregatesInput = {
   rentalStatus?: Prisma.EnumRental_StatusWithAggregatesFilter<"RentalOrder"> | $Enums.Rental_Status
   gearItemId?: Prisma.StringWithAggregatesFilter<"RentalOrder"> | string
   customerId?: Prisma.StringWithAggregatesFilter<"RentalOrder"> | string
-  startDate?: Prisma.DateTimeWithAggregatesFilter<"RentalOrder"> | Date | string
-  endDate?: Prisma.DateTimeWithAggregatesFilter<"RentalOrder"> | Date | string
+  startDate?: Prisma.StringWithAggregatesFilter<"RentalOrder"> | string
+  endDate?: Prisma.StringWithAggregatesFilter<"RentalOrder"> | string
   totalAmount?: Prisma.FloatWithAggregatesFilter<"RentalOrder"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RentalOrder"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"RentalOrder"> | Date | string
@@ -321,8 +321,8 @@ export type RentalOrderScalarWhereWithAggregatesInput = {
 export type RentalOrderCreateInput = {
   id?: string
   rentalStatus?: $Enums.Rental_Status
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -336,8 +336,8 @@ export type RentalOrderUncheckedCreateInput = {
   rentalStatus?: $Enums.Rental_Status
   gearItemId: string
   customerId: string
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -347,8 +347,8 @@ export type RentalOrderUncheckedCreateInput = {
 export type RentalOrderUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -362,8 +362,8 @@ export type RentalOrderUncheckedUpdateInput = {
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
   gearItemId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -375,8 +375,8 @@ export type RentalOrderCreateManyInput = {
   rentalStatus?: $Enums.Rental_Status
   gearItemId: string
   customerId: string
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -385,8 +385,8 @@ export type RentalOrderCreateManyInput = {
 export type RentalOrderUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,8 +397,8 @@ export type RentalOrderUncheckedUpdateManyInput = {
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
   gearItemId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -568,8 +568,8 @@ export type EnumRental_StatusFieldUpdateOperationsInput = {
 export type RentalOrderCreateWithoutCustomerInput = {
   id?: string
   rentalStatus?: $Enums.Rental_Status
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -581,8 +581,8 @@ export type RentalOrderUncheckedCreateWithoutCustomerInput = {
   id?: string
   rentalStatus?: $Enums.Rental_Status
   gearItemId: string
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -623,8 +623,8 @@ export type RentalOrderScalarWhereInput = {
   rentalStatus?: Prisma.EnumRental_StatusFilter<"RentalOrder"> | $Enums.Rental_Status
   gearItemId?: Prisma.StringFilter<"RentalOrder"> | string
   customerId?: Prisma.StringFilter<"RentalOrder"> | string
-  startDate?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
-  endDate?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
+  startDate?: Prisma.StringFilter<"RentalOrder"> | string
+  endDate?: Prisma.StringFilter<"RentalOrder"> | string
   totalAmount?: Prisma.FloatFilter<"RentalOrder"> | number
   createdAt?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RentalOrder"> | Date | string
@@ -633,8 +633,8 @@ export type RentalOrderScalarWhereInput = {
 export type RentalOrderCreateWithoutGearItemInput = {
   id?: string
   rentalStatus?: $Enums.Rental_Status
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -646,8 +646,8 @@ export type RentalOrderUncheckedCreateWithoutGearItemInput = {
   id?: string
   rentalStatus?: $Enums.Rental_Status
   customerId: string
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -683,8 +683,8 @@ export type RentalOrderUpdateManyWithWhereWithoutGearItemInput = {
 export type RentalOrderCreateWithoutPaymentsInput = {
   id?: string
   rentalStatus?: $Enums.Rental_Status
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -697,8 +697,8 @@ export type RentalOrderUncheckedCreateWithoutPaymentsInput = {
   rentalStatus?: $Enums.Rental_Status
   gearItemId: string
   customerId: string
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -723,8 +723,8 @@ export type RentalOrderUpdateToOneWithWhereWithoutPaymentsInput = {
 export type RentalOrderUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -737,8 +737,8 @@ export type RentalOrderUncheckedUpdateWithoutPaymentsInput = {
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
   gearItemId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -748,8 +748,8 @@ export type RentalOrderCreateManyCustomerInput = {
   id?: string
   rentalStatus?: $Enums.Rental_Status
   gearItemId: string
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -758,8 +758,8 @@ export type RentalOrderCreateManyCustomerInput = {
 export type RentalOrderUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -771,8 +771,8 @@ export type RentalOrderUncheckedUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
   gearItemId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -783,8 +783,8 @@ export type RentalOrderUncheckedUpdateManyWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
   gearItemId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -794,8 +794,8 @@ export type RentalOrderCreateManyGearItemInput = {
   id?: string
   rentalStatus?: $Enums.Rental_Status
   customerId: string
-  startDate: Date | string
-  endDate: Date | string
+  startDate: string
+  endDate: string
   totalAmount: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -804,8 +804,8 @@ export type RentalOrderCreateManyGearItemInput = {
 export type RentalOrderUpdateWithoutGearItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -817,8 +817,8 @@ export type RentalOrderUncheckedUpdateWithoutGearItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -829,8 +829,8 @@ export type RentalOrderUncheckedUpdateManyWithoutGearItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rentalStatus?: Prisma.EnumRental_StatusFieldUpdateOperationsInput | $Enums.Rental_Status
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -951,8 +951,8 @@ export type $RentalOrderPayload<ExtArgs extends runtime.Types.Extensions.Interna
     rentalStatus: $Enums.Rental_Status
     gearItemId: string
     customerId: string
-    startDate: Date
-    endDate: Date
+    startDate: string
+    endDate: string
     totalAmount: number
     createdAt: Date
     updatedAt: Date
@@ -1386,8 +1386,8 @@ export interface RentalOrderFieldRefs {
   readonly rentalStatus: Prisma.FieldRef<"RentalOrder", 'Rental_Status'>
   readonly gearItemId: Prisma.FieldRef<"RentalOrder", 'String'>
   readonly customerId: Prisma.FieldRef<"RentalOrder", 'String'>
-  readonly startDate: Prisma.FieldRef<"RentalOrder", 'DateTime'>
-  readonly endDate: Prisma.FieldRef<"RentalOrder", 'DateTime'>
+  readonly startDate: Prisma.FieldRef<"RentalOrder", 'String'>
+  readonly endDate: Prisma.FieldRef<"RentalOrder", 'String'>
   readonly totalAmount: Prisma.FieldRef<"RentalOrder", 'Float'>
   readonly createdAt: Prisma.FieldRef<"RentalOrder", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"RentalOrder", 'DateTime'>
