@@ -8,6 +8,8 @@ import { authRoute } from "./modules/auth/auth.route"
 import { providerController } from "./modules/provider/provider.controller"
 import { providerROute } from "./modules/provider/provider.route"
 import { reviewRoute } from "./modules/Reviews/Review"
+import { role } from "../prisma/generated/prisma/enums"
+import { auth } from "./middlewares/auth.middleware"
 
 
 

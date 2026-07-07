@@ -250,19 +250,19 @@ export type ReviewsOrderByWithRelationInput = {
 
 export type ReviewsWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  customerId?: string
   customerId_gearItemId?: Prisma.ReviewsCustomerIdGearItemIdCompoundUniqueInput
   AND?: Prisma.ReviewsWhereInput | Prisma.ReviewsWhereInput[]
   OR?: Prisma.ReviewsWhereInput[]
   NOT?: Prisma.ReviewsWhereInput | Prisma.ReviewsWhereInput[]
   review?: Prisma.StringFilter<"Reviews"> | string
   rating?: Prisma.IntFilter<"Reviews"> | number
-  customerId?: Prisma.StringFilter<"Reviews"> | string
   gearItemId?: Prisma.StringFilter<"Reviews"> | string
   createdAt?: Prisma.DateTimeFilter<"Reviews"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reviews"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   gearItems?: Prisma.XOR<Prisma.GearItemsScalarRelationFilter, Prisma.GearItemsWhereInput>
-}, "id" | "customerId_gearItemId">
+}, "id" | "customerId" | "customerId_gearItemId">
 
 export type ReviewsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

@@ -3,7 +3,7 @@ model Reviews{
   id String @id @default(uuid())
   review String 
   rating Int 
-  customerId String
+  customerId String @unique
   customer Customer @relation(fields: [customerId], references: [id],onDelete: Cascade)  
   gearItemId String
   gearItems GearItems @relation(fields: [gearItemId], references: [id],onDelete: Cascade)  

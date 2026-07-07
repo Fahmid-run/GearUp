@@ -47,16 +47,13 @@ export const auth = (...requiredRoles: any[])=> {
     const { email, name, id, role,authorId } = verifyTOken.payload as JwtPayload;
 
     if (requiredRoles.length && !requiredRoles.includes(role)) {
-      throw new AppError("Forbidden access ", httpStatus.FORBIDDEN)
+       throw new AppError("Forbidden access ", httpStatus.FORBIDDEN)
     }
 
 
     const user = await prisma.user.findUnique({
       where: {
-        id,
-        name,
         email,
-        role,
       },
     });
 
