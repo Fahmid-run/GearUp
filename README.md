@@ -26,10 +26,9 @@ Rental Orders
 
 Gear (Public)
 
-<!-- get all gears -->
-<!-- get gear by id -->
+<!-- !get all gears -->
+<!--! get gear by id -->
 <!-- get gear categories -->
-
 
 
 

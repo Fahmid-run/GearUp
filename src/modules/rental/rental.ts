@@ -43,39 +43,22 @@ route.get(
   '/',
   auth(role.Customer, role.Provider),
   catchAsync(async (req: Request, res: Response) => {
-    const userId = req.user?.authorId;
-    checkExists(prisma.customer, userId, 'User does not exists');
+    const customerId = req.user?.authorId;
+    checkExists(prisma.customer, customerId, 'User does not exists');
 
-    const userRole = req.user?.role as role;
-    if (userRole === role.Customer) {
-      const resultForCustomer = await prisma.rentalOrder.findMany({
-        where: {
-          customerId: userId,
-        },
-      });
+    const resultForCustomer = await prisma.rentalOrder.findMany({
+      where: {
+        customerId,
+      },
+    });
 
-      sendResponse(res, {
-        success: true,
-        statusCode: httpstatus.CREATED,
-        message: 'Rental Order Retreieved Successfully',
-        data: resultForCustomer,
-      });
-    } else {
-      const resultForProvider = await prisma.rentalOrder.findMany({
-        where: {
-          gearItem: {
-            providerId: userId,
-          },
-        },
-      });
-
-      sendResponse(res, {
-        success: true,
-        statusCode: httpstatus.CREATED,
-        message: 'Rental Order Retreieved Successfully',
-        data: resultForProvider,
-      });
-    }
+    sendResponse(res, {
+      success: true,
+      statusCode: httpstatus.CREATED,
+      message: 'Rental Order Retreieved Successfully',
+      data: resultForCustomer,
+    });
+    
   }),
 );
 

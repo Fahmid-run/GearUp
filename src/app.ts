@@ -11,6 +11,7 @@ import { reviewRoute } from "./modules/Reviews/Review"
 import { role } from "../prisma/generated/prisma/enums"
 import { auth } from "./middlewares/auth.middleware"
 import { rentalRoute } from "./modules/rental/rental"
+import { gearRoute } from "./modules/gears/gear.service"
 
 
 
@@ -38,6 +39,9 @@ app.use('/api/provider', providerROute);
 app.use('/api/reviews', reviewRoute);
 //rental route
 app.use('/api/rentals', rentalRoute);
+
+//gear item route
+app.use('/api/gear', gearRoute);
 
 
 

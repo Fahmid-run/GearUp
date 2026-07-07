@@ -1,7 +1,7 @@
 
 
 import { Router } from "express";
-import { gearController } from "../gears/gear.controller";
+import { gearController } from "../gears/gear.service";
 import { providerController } from "./provider.controller";
 import { auth } from "../../middlewares/auth.middleware";
 import { role } from "../../../prisma/generated/prisma/enums";
