@@ -4,6 +4,7 @@ import httpStatus from 'http-status';
 import { verfiyToken } from "../utils/jwrUtils";
 import constants from "../config";
 import { JwtPayload } from "jsonwebtoken";
+import { prisma } from "../lib/prisma";
 
 
 
@@ -59,7 +60,7 @@ const auth = (...requiredRoles: any[])=> {
     });
 
     if (!user) {
-      throw new Error('User Not Found');
+      throw new AppError('User Not Found',404);
     }
 
     req.user = {

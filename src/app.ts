@@ -20,6 +20,17 @@ app.use(cors({
 }))
 
 
+app.get('/', (req, res) => {
+  res.end('hello root');
+});
+
+
+app.use('/api/auth', authRoute);
+
+
+
+
+
 // 404 Not found
 
 app.use((req, res, next) => {
@@ -34,7 +45,6 @@ app.use(errorHandler);
 
 
 
-app.use("/api/auth",authRoute)
 
 
 

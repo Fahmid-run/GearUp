@@ -5,7 +5,6 @@ export const catchAsync = (fn: RequestHandler) => {
 
     try {
       fn(req, res, next)
-      next()
     } catch (error) {
       next(error)
     }
