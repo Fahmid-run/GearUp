@@ -10,7 +10,7 @@ export const errorHandler: ErrorRequestHandler = (
   next: NextFunction,
 ) => {
   const statusCode = err.statusCode || httpStatus.INTERNAL_SERVER_ERROR;
-  const message = err.message || 'Something Went Worng';
+  const message = err.message || 'Something Went Wronng';
 
   res.status(statusCode).json({
     success: false,

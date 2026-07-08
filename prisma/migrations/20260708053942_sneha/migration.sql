@@ -78,8 +78,8 @@ CREATE TABLE "rentalorder" (
     "rentalStatus" "Rental_Status" NOT NULL DEFAULT 'PLACED',
     "gearItemId" TEXT NOT NULL,
     "customerId" TEXT NOT NULL,
-    "startDate" TIMESTAMP(3) NOT NULL,
-    "endDate" TIMESTAMP(3) NOT NULL,
+    "startDate" TEXT NOT NULL,
+    "endDate" TEXT NOT NULL,
     "totalAmount" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -128,6 +128,9 @@ CREATE UNIQUE INDEX "Payment_rentalOrderId_key" ON "Payment"("rentalOrderId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "provider_userId_key" ON "provider"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "reviews_customerId_key" ON "reviews"("customerId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "reviews_customerId_gearItemId_key" ON "reviews"("customerId", "gearItemId");
