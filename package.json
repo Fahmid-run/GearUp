@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsup src/server.ts --watch --onSuccess \"node dist/server.js\"",
     "build": "prisma generate && tsup src/server.ts --format esm --clean",
-    "vercel-build": "prisma generate && tsup src/server.ts --format esm --clean --out-dir .",
+    "vercel-build": "prisma generate",
     "start": "node dist/server.js"
   },
   "dependencies": {
