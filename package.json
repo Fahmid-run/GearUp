@@ -2,6 +2,11 @@
   "name": "gearup",
   "version": "1.0.0",
   "type": "module",
+  "scripts": {
+    "dev": "tsup src/server.ts --watch --onSuccess \"node dist/server.js\"",
+    "build": "prisma generate && tsup src/server.ts --format esm --clean",
+    "start": "node dist/server.js"
+  },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
@@ -15,13 +20,6 @@
     "pg": "^8.22.0",
     "stripe": "^22.3.0",
     "tsx": "^4.23.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prisma:generate": "prisma generate",
-    "build": "prisma generate && tsc",
-    "start": "node dist/server.js",
-    "dev": "tsx --watch src/server.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
