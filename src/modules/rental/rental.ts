@@ -22,7 +22,7 @@ route.post(
 
     const result = await prisma.rentalOrder.create({
       data: {
-        customerId,
+        customerId:customerId!,
         gearItemId,
         startDate,
         endDate,

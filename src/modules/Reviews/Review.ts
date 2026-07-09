@@ -19,13 +19,15 @@ route.post("/:gearItemId",auth(role.Customer), catchAsync(async (req: Request, r
   const gearItemId= req.params?.gearItemId as string
   const { review, rating } = req.body;
   checkExists(prisma.customer, customerId, "User does not exists")
+
+
   
 
   const result = await prisma.reviews.create({
     data: {
       review,
       rating,
-      customerId,
+      customerId:customerId!,
       gearItemId
     }
   });
