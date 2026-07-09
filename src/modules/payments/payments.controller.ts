@@ -51,7 +51,19 @@ const getMyPayments = catchAsync(async (req, res) => {
 });
 
 const webhook = catchAsync(async (req, res) => {
-  const result = await paymentService.handleWebhook(req.body);
+  const signature = req.headers['stripe-signature'] as string;
+
+  const event = stripe.webhooks.constructEvent(
+    req.body,
+    signature,
+    process.env.STRIPE_WEBHOOK_SECRET as string,
+  );
+
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object as Stripe.Checkout.Session;
+
+    await paymentService.handleCheckoutSuccess(session);
+  }
 
   res.status(200).json({
     received: true,

@@ -1,3 +1,4 @@
+import Stripe from "stripe";
 import { PaymentProvider, PaymentStatus, Rental_Status, role } from "../../../prisma/generated/prisma/enums";
 import { stripe } from "../../config/stripe";
 import { prisma } from "../../lib/prisma";
@@ -45,8 +46,6 @@ const createCheckoutSession = async (rentalOrderId: string) => {
 
     line_items: [
       {
-        quantity: 1,
-
         price_data: {
           currency: 'usd',
 
@@ -56,21 +55,18 @@ const createCheckoutSession = async (rentalOrderId: string) => {
 
           unit_amount: Math.round(rental.totalAmount * 100),
         },
+
+        quantity: 1,
       },
     ],
+
+    metadata: {
+      rentalOrderId,
+    },
 
     success_url: `${process.env.CLIENT_URL}/payment-success`,
 
     cancel_url: `${process.env.CLIENT_URL}/payment-cancel`,
-     metadata:{
-    rentalOrderId
- },
-
-    payment_intent_data: {
-      metadata: {
-        rentalOrderId,
-      },
-    },
   });
 
   const payment = await prisma.payment.create({
@@ -105,14 +101,12 @@ const getSinglePayment = async (id: string) => {
 
 
 
-const handleWebhook = async (event: any) => {
-  if (event.type !== 'checkout.session.completed') {
-    return;
+const handleCheckoutSuccess = async (session: Stripe.Checkout.Session) => {
+  const rentalOrderId = session.metadata?.rentalOrderId;
+
+  if (!rentalOrderId) {
+    throw new AppError('Rental Order ID missing', 400);
   }
-
-  const session = event.data.object;
-
-  const rentalOrderId = session.metadata.rentalOrderId;
 
   const payment = await prisma.payment.findUnique({
     where: {
@@ -121,11 +115,15 @@ const handleWebhook = async (event: any) => {
   });
 
   if (!payment) {
-    throw new Error('Payment not found');
+    throw new AppError('Payment not found', 404);
   }
 
-  await prisma.$transaction(async tx => {
-    await tx.payment.update({
+  if (payment.status === PaymentStatus.SUCCESS) {
+    return payment;
+  }
+
+  const result = await prisma.$transaction(async tx => {
+    const updatedPayment = await tx.payment.update({
       where: {
         id: payment.id,
       },
@@ -148,12 +146,16 @@ const handleWebhook = async (event: any) => {
         rentalStatus: Rental_Status.PAID,
       },
     });
+
+    return updatedPayment;
   });
+
+  return result;
 };
 
 export const paymentService = {
   createCheckoutSession,
   getMyPayments,
   getSinglePayment,
-  handleWebhook,
+  handleCheckoutSuccess,
 };

@@ -28,6 +28,14 @@ app.use(cors({
 }))
 
 
+app.post(
+  '/api/payments/webhook',
+  express.raw({
+    type: 'application/json',
+  }),
+  paymentController.webhook,
+);
+
 app.use(express.json());
 
 
