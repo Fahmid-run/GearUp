@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "ignoreDeprecations": "6.0",
     "outDir": "./dist" /* This tells TS where to put the compiled JS files */,
-    "rootDir": "./src"
+    "rootDirs": ["./src", "./prisma/generated/prisma"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "prisma/generated/prisma/**/*"]
 }
