@@ -8,6 +8,7 @@
     "ignoreDeprecations": "6.0",
     "outDir": "./dist",
     "rootDirs": ["./src", "./prisma/generated/prisma"]
+    
   },
   "include": ["src/**/*", "prisma/generated/prisma/**/*","src/types/express.d.ts"]
 }
