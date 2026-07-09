@@ -3,7 +3,7 @@ import { Rental_Status } from '../../../prisma/generated/prisma/enums';
 import { prisma } from "../../lib/prisma";
 import AppError from "../../utils/appError";
 import { IRentalPayload } from "./rental.interface";
-
+import httpstatus from 'http-status'
 
 const createRentalOrder = async (userId: string, payload: IRentalPayload) => {
   const customer = await prisma.customer.findUniqueOrThrow({
@@ -35,6 +35,17 @@ const createRentalOrder = async (userId: string, payload: IRentalPayload) => {
       },
     },
   });
+
+  const providerIds = new Set(gears.map(gear => gear.providerId));
+
+  if (providerIds.size > 1) {
+    throw new AppError(
+      'All gear items in a rental order must belong to the same provider.',
+      httpstatus.BAD_REQUEST,
+    );
+  }
+
+
 
   if (gears.length !== items.length) {
     throw new AppError('Some gear not found', 404);

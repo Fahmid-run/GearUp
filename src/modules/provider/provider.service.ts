@@ -148,17 +148,28 @@ const updateRentalORderStatus = async (
   providerId: string,
   paylaod:any,
 ) => {
-  const rentalOrder = await checkExists(
-    prisma.rentalOrder,
-    rentalOrderId,
-    'Rental Order does not exists',
-  );
+  
+  const rentalOrder = await prisma.rentalOrder.findUniqueOrThrow({
+    where: {
+      id: rentalOrderId,
+    },
+    include: {
+      items: {
+        include: {
+          gearItem: true,
+        },
+      },
+    },
+  });
 
-  const isOwner = providerId === rentalOrder.providerId;
+  const isOwner = rentalOrder.items.every(
+    item => item.gearItem.providerId === providerId,
+  );
 
   if (!isOwner) {
     throw new AppError('Forbidden Access', httpstatus.FORBIDDEN);
   }
+
 
   const result = await prisma.rentalOrder.update({
     where: {
