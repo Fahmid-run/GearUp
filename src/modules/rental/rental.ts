@@ -8,27 +8,21 @@ import { role } from '../../../prisma/generated/prisma/enums';
 import { sendResponse } from '../../utils/sendResponse';
 import httpstatus from 'http-status';
 import { auth } from '../../middlewares/auth.middleware';
+import { rentalService } from './rental.service';
 
 const route = Router();
 
 route.post(
-  '/:gearItemId',
+  '/',
   auth(role.Customer),
   catchAsync(async (req: Request, res: Response) => {
-    const customerId = req.user?.authorId;
-    const gearItemId = req.params?.gearItemId as string;
-    const { startDate, endDate, totalAmount } = req.body;
-    checkExists(prisma.customer, customerId, 'User does not exists');
 
-    const result = await prisma.rentalOrder.create({
-      data: {
-        customerId:customerId!,
-        gearItemId,
-        startDate,
-        endDate,
-        totalAmount,
-      },
-    });
+
+    const id= req.user?.id as string
+     const result = await rentalService.createRentalOrder(
+       id,
+       req.body,
+     );
 
     sendResponse(res, {
       success: true,

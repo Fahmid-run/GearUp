@@ -18,7 +18,7 @@ model GearItems{
   brand String
   availability GearAvailability @default(AVAILABLE)
   reviews Reviews[]
-  rentalOrder RentalOrder[]
+  rentalOrderItems RentalOrderItem[]
 
 
   createdAt DateTime @default(now())

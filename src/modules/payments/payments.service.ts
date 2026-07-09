@@ -1,10 +1,13 @@
-import Stripe from "stripe";
-import { PaymentProvider, PaymentStatus, Rental_Status, role } from "../../../prisma/generated/prisma/enums";
-import { stripe } from "../../config/stripe";
-import { prisma } from "../../lib/prisma";
-import AppError from "../../utils/appError";
-import { checkExists } from "../../utils/checkExist";
-
+import Stripe from 'stripe';
+import {
+  PaymentProvider,
+  PaymentStatus,
+  Rental_Status,
+  role,
+} from '../../../prisma/generated/prisma/enums';
+import { stripe } from '../../config/stripe';
+import { prisma } from '../../lib/prisma';
+import AppError from '../../utils/appError';
 
 const getMyPayments = async (customerId: string) => {
   return prisma.payment.findMany({
@@ -27,6 +30,8 @@ const createCheckoutSession = async (rentalOrderId: string) => {
     },
   });
 
+  console.log(rental)
+
   if (rental.rentalStatus !== Rental_Status.CONFIRMED) {
     throw new AppError('Rental is not confirmed', 400);
   }
@@ -45,21 +50,17 @@ const createCheckoutSession = async (rentalOrderId: string) => {
     mode: 'payment',
 
     line_items: [
-      {
-        price_data: {
-          currency: 'usd',
-
-          product_data: {
-            name: 'Gear Rental',
-          },
-
-          unit_amount: Math.round(rental.totalAmount * 100),
-        },
-
-        quantity: 1,
+  {
+    price_data: {
+      currency: "usd",
+      product_data: {
+        name: "Gear Rental",
       },
-    ],
-
+      unit_amount: Math.round(rental.totalAmount * 100),
+    },
+    quantity: 1,
+  },
+],
     metadata: {
       rentalOrderId,
     },
@@ -85,8 +86,6 @@ const createCheckoutSession = async (rentalOrderId: string) => {
   };
 };
 
-
-
 const getSinglePayment = async (id: string) => {
   return prisma.payment.findUniqueOrThrow({
     where: {
@@ -98,8 +97,6 @@ const getSinglePayment = async (id: string) => {
     },
   });
 };
-
-
 
 const handleCheckoutSuccess = async (session: Stripe.Checkout.Session) => {
   const rentalOrderId = session.metadata?.rentalOrderId;

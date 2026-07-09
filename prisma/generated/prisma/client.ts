@@ -62,6 +62,11 @@ export type Payment = Prisma.PaymentModel
  */
 export type Provider = Prisma.ProviderModel
 /**
+ * Model RentalOrderItem
+ * 
+ */
+export type RentalOrderItem = Prisma.RentalOrderItemModel
+/**
  * Model RentalOrder
  * 
  */

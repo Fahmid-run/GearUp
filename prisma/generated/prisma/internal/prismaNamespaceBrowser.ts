@@ -55,6 +55,7 @@ export const ModelName = {
   GearItems: 'GearItems',
   Payment: 'Payment',
   Provider: 'Provider',
+  RentalOrderItem: 'RentalOrderItem',
   RentalOrder: 'RentalOrder',
   Reviews: 'Reviews',
   User: 'User'
@@ -131,10 +132,21 @@ export const ProviderScalarFieldEnum = {
 export type ProviderScalarFieldEnum = (typeof ProviderScalarFieldEnum)[keyof typeof ProviderScalarFieldEnum]
 
 
+export const RentalOrderItemScalarFieldEnum = {
+  id: 'id',
+  rentalOrderId: 'rentalOrderId',
+  gearItemId: 'gearItemId',
+  quantity: 'quantity',
+  pricePerDay: 'pricePerDay',
+  createdAt: 'createdAt'
+} as const
+
+export type RentalOrderItemScalarFieldEnum = (typeof RentalOrderItemScalarFieldEnum)[keyof typeof RentalOrderItemScalarFieldEnum]
+
+
 export const RentalOrderScalarFieldEnum = {
   id: 'id',
   rentalStatus: 'rentalStatus',
-  gearItemId: 'gearItemId',
   customerId: 'customerId',
   startDate: 'startDate',
   endDate: 'endDate',

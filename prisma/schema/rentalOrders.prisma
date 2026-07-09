@@ -3,8 +3,6 @@ model RentalOrder{
   id String @id @default(uuid())
 
   rentalStatus Rental_Status @default(PLACED)
-  gearItemId String
-  gearItem GearItems @relation(fields: [gearItemId], references: [id])
   customerId String
   customer Customer @relation(fields: [customerId], references: [id])   
   payment Payment? 
@@ -14,6 +12,7 @@ model RentalOrder{
 endDate DateTime
 
   totalAmount Float
+  items RentalOrderItem[]
 
 
   createdAt DateTime @default(now())
