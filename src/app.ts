@@ -12,6 +12,8 @@ import { role } from "../prisma/generated/prisma/enums"
 import { auth } from "./middlewares/auth.middleware"
 import { rentalRoute } from "./modules/rental/rental"
 import { gearRoute } from "./modules/gears/gear.service"
+import { paymentRoute } from "./modules/payments/payments.route"
+import { paymentController } from "./modules/payments/payments.controller"
 
 
 
@@ -20,11 +22,13 @@ const app :Application= express()
 
 //middlewares 
 app.use(cookieParser())
-app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cors({
   
 }))
+
+
+app.use(express.json());
 
 
 app.get('/', (req, res) => {
@@ -42,6 +46,8 @@ app.use('/api/rentals', rentalRoute);
 
 //gear item route
 app.use('/api/gear', gearRoute);
+//payment route
+app.use('/api/payments', paymentRoute);
 
 
 

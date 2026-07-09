@@ -7,11 +7,11 @@ model RentalOrder{
   gearItem GearItems @relation(fields: [gearItemId], references: [id])
   customerId String
   customer Customer @relation(fields: [customerId], references: [id])   
-  payments Payment[]
+  payment Payment? 
 
-  startDate String
+  startDate DateTime
 
-  endDate String
+endDate DateTime
 
   totalAmount Float
 
