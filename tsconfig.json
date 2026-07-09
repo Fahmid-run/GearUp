@@ -6,8 +6,8 @@
     "strict": true,
     "esModuleInterop": true,
     "ignoreDeprecations": "6.0",
-    "outDir": "./dist" /* This tells TS where to put the compiled JS files */,
+    "outDir": "./dist",
     "rootDirs": ["./src", "./prisma/generated/prisma"]
   },
-  "include": ["src/**/*", "prisma/generated/prisma/**/*"]
+  "include": ["src/**/*", "prisma/generated/prisma/**/*","src/types/express.d.ts"]
 }
