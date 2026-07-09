@@ -3,7 +3,6 @@ import {
   PaymentProvider,
   PaymentStatus,
   Rental_Status,
-  role,
 } from '../../../prisma/generated/prisma/enums';
 import { stripe } from '../../config/stripe';
 import { prisma } from '../../lib/prisma';

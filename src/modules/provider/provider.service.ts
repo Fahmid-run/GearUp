@@ -133,11 +133,11 @@ const upcomingRentalOrder = async (providerId: string) => {
   checkExists(prisma.provider, providerId, 'User does not exists');
 
   const result = await prisma.rentalOrder.findMany({
-    where: {
-      gearItem: {
-        providerId
-      }
-    },
+    // where: {
+    //   gearItem: {
+    //     providerId
+    //   }
+    // },
   });
 
   return result;

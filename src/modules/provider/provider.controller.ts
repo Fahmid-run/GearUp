@@ -77,8 +77,12 @@ const upcomingRentalOrder = catchAsync(async (req, res, next) => {
 
 const updateRentalORderStatus = catchAsync(async (req, res, next) => {
   const providerId = req.user?.authorId as string;
+  const rentalOrderId = req.params?.orderId as string
+  const payload = req.body;
 
-  const result = await providerService.upcomingRentalOrder(providerId);
+  const result = await providerService.updateRentalORderStatus(
+    rentalOrderId,providerId,payload
+  );
 
   sendResponse(res, {
     success: true,

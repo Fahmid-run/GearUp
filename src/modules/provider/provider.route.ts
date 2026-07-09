@@ -18,6 +18,10 @@ router.delete(
 );
 
 
-router.get("/orders",auth(role.Provider), providerController.upcomingRentalOrder)
+router.patch(
+  '/orders/:orderId',
+  auth(role.Provider),
+  providerController.updateRentalORderStatus
+);
 
 export const providerROute= router
