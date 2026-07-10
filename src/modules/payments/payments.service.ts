@@ -29,9 +29,14 @@ const createCheckoutSession = async (rentalOrderId: string) => {
     },
   });
 
+  if (rental.rentalStatus !== Rental_Status.CANCELLED) {
+    throw new AppError('Rental is already cancelled', 400);
+  }
+  
   if (rental.rentalStatus !== Rental_Status.CONFIRMED) {
     throw new AppError('Rental is not confirmed', 400);
   }
+  
 
   const existingPayment = await prisma.payment.findUnique({
     where: {

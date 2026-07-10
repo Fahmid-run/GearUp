@@ -14,13 +14,19 @@ import { gearRoute } from './modules/gears/gear.service';
 import { paymentRoute } from './modules/payments/payments.route';
 import { paymentController } from './modules/payments/payments.controller';
 import { adminRoute } from './modules/Admin/admin.route';
+import constants from './config';
 
 const app: Application = express();
 
 //middlewares
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({}));
+app.use(
+  cors({
+    origin: constants.CLIENT_URL,
+    credentials: true,
+  }),
+);
 
 app.post(
   '/api/payments/webhook',
