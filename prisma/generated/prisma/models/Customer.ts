@@ -309,10 +309,6 @@ export type CustomerNullableScalarRelationFilter = {
   isNot?: Prisma.CustomerWhereInput | null
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }

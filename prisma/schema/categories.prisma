@@ -1,0 +1,8 @@
+model Categories {
+
+  id String @id @default(uuid())
+  category Category @default(fitness)
+  gearItems GearItems[]
+
+  @@map("categories")
+}
