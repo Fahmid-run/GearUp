@@ -1,12 +1,11 @@
-import { role } from "../../../prisma/generated/prisma/enums";
 
 export interface IRegisterPaylaod {
   name: string;
   email: string;
   password: string;
-  phone:string;
-  address:string;
-  role: role;
+  phone: string;
+  address: string;
+  role?: "Customer" | "Provider";
 }
 
 export interface ILoginPaylaod{

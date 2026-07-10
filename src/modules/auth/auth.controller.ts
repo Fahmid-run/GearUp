@@ -2,10 +2,7 @@ import { catchAsync } from '../../utils/catchAsync';
 import { sendResponse } from '../../utils/sendResponse';
 import httpStatus from "http-status"
 import { authService } from './auth.service';
-import { verfiyToken } from '../../utils/jwrUtils';
-import constants from '../../config';
-import AppError from '../../utils/appError';
-import { ref } from 'node:process';
+
 const registerUser = catchAsync(async (req, res, next) => {
 
 

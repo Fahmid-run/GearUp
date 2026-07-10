@@ -3,18 +3,23 @@ import AppError from '../../utils/appError';
 import { ILoginPaylaod, IRegisterPaylaod } from './auth.interface';
 import bcrypt from 'bcrypt';
 import constants from '../../config';
+import httpstatus from "http-status"
 
-import jwt, { JwtPayload, SignOptions } from "jsonwebtoken"
+import { JwtPayload, SignOptions } from 'jsonwebtoken';
 import { createJwt, verfiyToken } from '../../utils/jwrUtils';
 
 const registerUserInDB = async (payload: IRegisterPaylaod) => {
   const { name, email, password, phone, address, role = 'Customer' } = payload;
 
+  if (role === "Admin") {
+    throw new AppError("You cannot register as a admin", httpstatus.FORBIDDEN)
+  }
+
   const isUserExists = await prisma.user.findUnique({
     where: {
-      email
-    }
-  })
+      email,
+    },
+  });
 
   if (isUserExists) {
     throw new AppError('User already exists', 400);
@@ -38,47 +43,42 @@ const registerUserInDB = async (payload: IRegisterPaylaod) => {
     include: {
       Customer: true,
       Provider: true,
-      
-    }, omit: {
-      password:true
-    }
+    },
+    omit: {
+      password: true,
+    },
   });
 
   return result;
 };
 
-
-const loginUser = async ({
-  email,password
-}: ILoginPaylaod) => {
-
+const loginUser = async ({ email, password }: ILoginPaylaod) => {
   const isUserExists = await prisma.user.findUnique({
     where: {
-      email
-    }, include: {
+      email,
+    },
+    include: {
       Customer: true,
-      Provider:true
-    }
+      Provider: true,
+    },
   });
 
   if (!isUserExists) {
     throw new AppError('User Does not exists', 404);
   }
 
-  const matchPassword=await bcrypt.compare(password,isUserExists.password)
+  const matchPassword = await bcrypt.compare(password, isUserExists.password);
 
   if (!matchPassword) {
     throw new AppError('Password Does not matched', 404);
-    
   }
 
-
   const JwtPayload = {
-    id:isUserExists.id,
+    id: isUserExists.id,
     name: isUserExists.name,
     email: isUserExists.email,
     role: isUserExists.role,
-    authorId: isUserExists.Customer?.id || isUserExists.Provider?.id
+    authorId: isUserExists.Customer?.id || isUserExists.Provider?.id,
   };
 
   const accessToken = createJwt(
@@ -94,17 +94,11 @@ const loginUser = async ({
     constants.JWT_REFRESH_EXPIRES_IN as SignOptions,
   );
 
-  
   return {
-    accessToken, refreshToken
-  }
-
-
-  
-
+    accessToken,
+    refreshToken,
+  };
 };
-
-
 
 const refreshToken = async (refreshToken: string) => {
   const jwtVerify = verfiyToken(refreshToken, constants.JWT_REFRESH_SECRET);
@@ -129,7 +123,7 @@ const refreshToken = async (refreshToken: string) => {
   };
 
   const generated_accessToken = createJwt(
-    jwtPayload ,
+    jwtPayload,
     constants.JWT_ACCESS_SECRET,
     constants.JWT_ACCESS_EXPIRES_IN as SignOptions,
   );
@@ -137,26 +131,22 @@ const refreshToken = async (refreshToken: string) => {
   return { generated_accessToken };
 };
 
-
-
-const getMyProfileFromdDb = async (id:string, email:string) => {
-
+const getMyProfileFromdDb = async (id: string, email: string) => {
   const result = await prisma.user.findUnique({
     where: {
-      id,email
+      id,
+      email,
     },
     omit: {
-      password:true
+      password: true,
     },
     include: {
       Customer: true,
-      Provider:true
-    }
-  })
-  return result
-
+      Provider: true,
+    },
+  });
+  return result;
 };
-
 
 export const authService = {
   registerUserInDB,
