@@ -29,8 +29,6 @@ const createCheckoutSession = async (rentalOrderId: string) => {
     },
   });
 
-  console.log(rental)
-
   if (rental.rentalStatus !== Rental_Status.CONFIRMED) {
     throw new AppError('Rental is not confirmed', 400);
   }
@@ -47,7 +45,6 @@ const createCheckoutSession = async (rentalOrderId: string) => {
 
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
-
     line_items: [
   {
     price_data: {

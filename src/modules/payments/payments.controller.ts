@@ -1,18 +1,15 @@
-import { NextFunction, Request, Response } from "express";
-import { sendResponse } from "../../utils/sendResponse";
-import httpStatus from "http-status"
-import { catchAsync } from "../../utils/catchAsync";
-import { paymentService } from "./payments.service";
-import { stripe } from "../../config/stripe";
-import { PaymentStatus, Rental_Status } from "../../../prisma/generated/prisma/enums";
-import { prisma } from "../../lib/prisma";
-import Stripe from "stripe";
 
+import { sendResponse } from '../../utils/sendResponse';
+import httpStatus from 'http-status';
+import { catchAsync } from '../../utils/catchAsync';
+import { paymentService } from './payments.service';
+import { stripe } from '../../config/stripe';
+
+import Stripe from 'stripe';
 
 const createCheckoutSession = catchAsync(async (req, res) => {
   const rentalOrderId = req.params.rentalOrderId as string;
-  const result = await paymentService.createCheckoutSession(rentalOrderId,
-  );
+  const result = await paymentService.createCheckoutSession(rentalOrderId);
 
   sendResponse(res, {
     success: true,
@@ -22,12 +19,8 @@ const createCheckoutSession = catchAsync(async (req, res) => {
   });
 });
 
-
-
-
 const getSinglePayment = catchAsync(async (req, res) => {
-
-const id=req.params.id as string
+  const id = req.params.id as string;
   const result = await paymentService.getSinglePayment(id);
 
   sendResponse(res, {
@@ -39,7 +32,7 @@ const id=req.params.id as string
 });
 
 const getMyPayments = catchAsync(async (req, res) => {
-  const id = req.user?.authorId as string
+  const id = req.user?.authorId as string;
   const result = await paymentService.getMyPayments(id);
 
   sendResponse(res, {
@@ -65,12 +58,13 @@ const webhook = catchAsync(async (req, res) => {
     await paymentService.handleCheckoutSuccess(session);
   }
 
-  res.status(200).json({
+  res.status(httpStatus.OK).json({
     received: true,
   });
 });
 export const paymentController = {
   getSinglePayment,
   getMyPayments,
-  createCheckoutSession,webhook
+  createCheckoutSession,
+  webhook,
 };

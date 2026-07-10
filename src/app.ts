@@ -1,32 +1,26 @@
-import cookieParser from "cookie-parser"
-import express, { Application } from "express"
-import cors from "cors"
-import { errorHandler } from "./middlewares/globalErrorHandler"
-import AppError from "./utils/appError"
-import httpstatus from "http-status"
-import { authRoute } from "./modules/auth/auth.route"
-import { providerController } from "./modules/provider/provider.controller"
-import { providerROute } from "./modules/provider/provider.route"
-import { reviewRoute } from "./modules/Reviews/Review"
-import { role } from "../prisma/generated/prisma/enums"
-import { auth } from "./middlewares/auth.middleware"
-import { rentalRoute } from "./modules/rental/rental"
-import { gearRoute } from "./modules/gears/gear.service"
-import { paymentRoute } from "./modules/payments/payments.route"
-import { paymentController } from "./modules/payments/payments.controller"
+import cookieParser from 'cookie-parser';
+import express, { Application } from 'express';
+import cors from 'cors';
+import { errorHandler } from './middlewares/globalErrorHandler';
+import AppError from './utils/appError';
+import httpstatus from 'http-status';
+import { authRoute } from './modules/auth/auth.route';
 
+import { providerROute } from './modules/provider/provider.route';
+import { reviewRoute } from './modules/Reviews/Review';
 
+import { rentalRoute } from './modules/rental/rental';
+import { gearRoute } from './modules/gears/gear.service';
+import { paymentRoute } from './modules/payments/payments.route';
+import { paymentController } from './modules/payments/payments.controller';
+import { adminRoute } from './modules/Admin/admin.route';
 
-const app :Application= express()
+const app: Application = express();
 
-
-//middlewares 
-app.use(cookieParser())
-app.use(express.urlencoded({extended:true}))
-app.use(cors({
-  
-}))
-
+//middlewares
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({}));
 
 app.post(
   '/api/payments/webhook',
@@ -38,10 +32,13 @@ app.post(
 
 app.use(express.json());
 
-
 app.get('/', (req, res) => {
   res.end('hello root');
 });
+
+//admin route
+
+app.use('/api/admin', adminRoute);
 
 //auth route
 app.use('/api/auth', authRoute);
@@ -57,26 +54,12 @@ app.use('/api/gear', gearRoute);
 //payment route
 app.use('/api/payments', paymentRoute);
 
-
-
-
-
-
 // 404 Not found
 
 app.use((req, res, next) => {
-  next(new AppError ("APi Route Not Found",httpstatus.NOT_FOUND))
-})
-
-
+  next(new AppError('APi Route Not Found', httpstatus.NOT_FOUND));
+});
 
 app.use(errorHandler);
 
-
-
-
-
-
-
-
-export default app
+export default app;

@@ -48,7 +48,7 @@ const createRentalOrder = async (userId: string, payload: IRentalPayload) => {
 
 
   if (gears.length !== items.length) {
-    throw new AppError('Some gear not found', 404);
+    throw new AppError('Some gear not found', httpstatus.NOT_FOUND);
   }
 
   let totalAmount = 0;
