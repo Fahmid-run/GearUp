@@ -11,6 +11,7 @@ model User{
   status User_Status @default(ACTIVE)
   Provider Provider?
   Customer Customer?
+  
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
