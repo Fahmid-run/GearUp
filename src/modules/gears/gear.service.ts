@@ -50,6 +50,11 @@ const getGearItems = async (query: Iquery) => {
       brand: query.brand,
     });
   }
+  if (query.categories) {
+    andConditions.push({
+      categories: query.categories,
+    });
+  }
 
   const result = await prisma.gearItems.findMany({
     where: {
