@@ -29,7 +29,7 @@ const createCheckoutSession = async (rentalOrderId: string) => {
     },
   });
 
-  if (rental.rentalStatus !== Rental_Status.CANCELLED) {
+  if (rental.rentalStatus === Rental_Status.CANCELLED) {
     throw new AppError('Rental is already cancelled', 400);
   }
   
