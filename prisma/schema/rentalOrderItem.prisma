@@ -1,26 +1,11 @@
 model RentalOrderItem {
-
   id String @id @default(uuid())
-
-
   rentalOrderId String
-
   rentalOrder RentalOrder @relation(fields:[rentalOrderId],references:[id],onDelete:Cascade)
-
-
   gearItemId String
-
   gearItem GearItems @relation(fields:[gearItemId],references:[id])
-
-
   quantity Int @default(1)
-
-
   pricePerDay Float
-
-
   createdAt DateTime @default(now())
-
-
   @@map("rentalorderitem")
 }

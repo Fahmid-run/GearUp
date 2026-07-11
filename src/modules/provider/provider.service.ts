@@ -44,7 +44,11 @@ const addGearItem = async (providerId: string, paylaod: IGearItem) => {
       condition,
       brand,
       image,
-      category,
+      category: {
+        create: {
+          category
+        }
+      } ,
       availability,
     },
   });
@@ -93,7 +97,11 @@ const updateGearItemById = async (
       condition,
       brand,
       image,
-      category,
+      category: {
+        update: {
+          category
+        }
+      },
       availability,
     },
   });
@@ -131,8 +139,8 @@ const upcomingRentalOrder = async (providerId: string) => {
       items: {
         gearItem: {
           providerId,
-        },
-      },
+        }
+      }
     },
   });
 

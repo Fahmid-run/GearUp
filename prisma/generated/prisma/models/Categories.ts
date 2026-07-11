@@ -27,16 +27,19 @@ export type AggregateCategories = {
 export type CategoriesMinAggregateOutputType = {
   id: string | null
   category: $Enums.Category | null
+  gearitemId: string | null
 }
 
 export type CategoriesMaxAggregateOutputType = {
   id: string | null
   category: $Enums.Category | null
+  gearitemId: string | null
 }
 
 export type CategoriesCountAggregateOutputType = {
   id: number
   category: number
+  gearitemId: number
   _all: number
 }
 
@@ -44,16 +47,19 @@ export type CategoriesCountAggregateOutputType = {
 export type CategoriesMinAggregateInputType = {
   id?: true
   category?: true
+  gearitemId?: true
 }
 
 export type CategoriesMaxAggregateInputType = {
   id?: true
   category?: true
+  gearitemId?: true
 }
 
 export type CategoriesCountAggregateInputType = {
   id?: true
   category?: true
+  gearitemId?: true
   _all?: true
 }
 
@@ -132,6 +138,7 @@ export type CategoriesGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type CategoriesGroupByOutputType = {
   id: string
   category: $Enums.Category
+  gearitemId: string
   _count: CategoriesCountAggregateOutputType | null
   _min: CategoriesMinAggregateOutputType | null
   _max: CategoriesMaxAggregateOutputType | null
@@ -158,27 +165,31 @@ export type CategoriesWhereInput = {
   NOT?: Prisma.CategoriesWhereInput | Prisma.CategoriesWhereInput[]
   id?: Prisma.StringFilter<"Categories"> | string
   category?: Prisma.EnumCategoryFilter<"Categories"> | $Enums.Category
-  gearItems?: Prisma.GearItemsListRelationFilter
+  gearitemId?: Prisma.StringFilter<"Categories"> | string
+  gearItems?: Prisma.XOR<Prisma.GearItemsScalarRelationFilter, Prisma.GearItemsWhereInput>
 }
 
 export type CategoriesOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   category?: Prisma.SortOrder
-  gearItems?: Prisma.GearItemsOrderByRelationAggregateInput
+  gearitemId?: Prisma.SortOrder
+  gearItems?: Prisma.GearItemsOrderByWithRelationInput
 }
 
 export type CategoriesWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  gearitemId?: string
   AND?: Prisma.CategoriesWhereInput | Prisma.CategoriesWhereInput[]
   OR?: Prisma.CategoriesWhereInput[]
   NOT?: Prisma.CategoriesWhereInput | Prisma.CategoriesWhereInput[]
   category?: Prisma.EnumCategoryFilter<"Categories"> | $Enums.Category
-  gearItems?: Prisma.GearItemsListRelationFilter
-}, "id">
+  gearItems?: Prisma.XOR<Prisma.GearItemsScalarRelationFilter, Prisma.GearItemsWhereInput>
+}, "id" | "gearitemId">
 
 export type CategoriesOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  gearitemId?: Prisma.SortOrder
   _count?: Prisma.CategoriesCountOrderByAggregateInput
   _max?: Prisma.CategoriesMaxOrderByAggregateInput
   _min?: Prisma.CategoriesMinOrderByAggregateInput
@@ -190,35 +201,37 @@ export type CategoriesScalarWhereWithAggregatesInput = {
   NOT?: Prisma.CategoriesScalarWhereWithAggregatesInput | Prisma.CategoriesScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Categories"> | string
   category?: Prisma.EnumCategoryWithAggregatesFilter<"Categories"> | $Enums.Category
+  gearitemId?: Prisma.StringWithAggregatesFilter<"Categories"> | string
 }
 
 export type CategoriesCreateInput = {
   id?: string
   category?: $Enums.Category
-  gearItems?: Prisma.GearItemsCreateNestedManyWithoutCategoriesInput
+  gearItems: Prisma.GearItemsCreateNestedOneWithoutCategoryInput
 }
 
 export type CategoriesUncheckedCreateInput = {
   id?: string
   category?: $Enums.Category
-  gearItems?: Prisma.GearItemsUncheckedCreateNestedManyWithoutCategoriesInput
+  gearitemId: string
 }
 
 export type CategoriesUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  gearItems?: Prisma.GearItemsUpdateManyWithoutCategoriesNestedInput
+  gearItems?: Prisma.GearItemsUpdateOneRequiredWithoutCategoryNestedInput
 }
 
 export type CategoriesUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
-  gearItems?: Prisma.GearItemsUncheckedUpdateManyWithoutCategoriesNestedInput
+  gearitemId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CategoriesCreateManyInput = {
   id?: string
   category?: $Enums.Category
+  gearitemId: string
 }
 
 export type CategoriesUpdateManyMutationInput = {
@@ -229,26 +242,30 @@ export type CategoriesUpdateManyMutationInput = {
 export type CategoriesUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+  gearitemId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CategoriesCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  gearitemId?: Prisma.SortOrder
 }
 
 export type CategoriesMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  gearitemId?: Prisma.SortOrder
 }
 
 export type CategoriesMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   category?: Prisma.SortOrder
+  gearitemId?: Prisma.SortOrder
 }
 
-export type CategoriesScalarRelationFilter = {
-  is?: Prisma.CategoriesWhereInput
-  isNot?: Prisma.CategoriesWhereInput
+export type CategoriesNullableScalarRelationFilter = {
+  is?: Prisma.CategoriesWhereInput | null
+  isNot?: Prisma.CategoriesWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -265,10 +282,28 @@ export type CategoriesCreateNestedOneWithoutGearItemsInput = {
   connect?: Prisma.CategoriesWhereUniqueInput
 }
 
-export type CategoriesUpdateOneRequiredWithoutGearItemsNestedInput = {
+export type CategoriesUncheckedCreateNestedOneWithoutGearItemsInput = {
+  create?: Prisma.XOR<Prisma.CategoriesCreateWithoutGearItemsInput, Prisma.CategoriesUncheckedCreateWithoutGearItemsInput>
+  connectOrCreate?: Prisma.CategoriesCreateOrConnectWithoutGearItemsInput
+  connect?: Prisma.CategoriesWhereUniqueInput
+}
+
+export type CategoriesUpdateOneWithoutGearItemsNestedInput = {
   create?: Prisma.XOR<Prisma.CategoriesCreateWithoutGearItemsInput, Prisma.CategoriesUncheckedCreateWithoutGearItemsInput>
   connectOrCreate?: Prisma.CategoriesCreateOrConnectWithoutGearItemsInput
   upsert?: Prisma.CategoriesUpsertWithoutGearItemsInput
+  disconnect?: Prisma.CategoriesWhereInput | boolean
+  delete?: Prisma.CategoriesWhereInput | boolean
+  connect?: Prisma.CategoriesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CategoriesUpdateToOneWithWhereWithoutGearItemsInput, Prisma.CategoriesUpdateWithoutGearItemsInput>, Prisma.CategoriesUncheckedUpdateWithoutGearItemsInput>
+}
+
+export type CategoriesUncheckedUpdateOneWithoutGearItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.CategoriesCreateWithoutGearItemsInput, Prisma.CategoriesUncheckedCreateWithoutGearItemsInput>
+  connectOrCreate?: Prisma.CategoriesCreateOrConnectWithoutGearItemsInput
+  upsert?: Prisma.CategoriesUpsertWithoutGearItemsInput
+  disconnect?: Prisma.CategoriesWhereInput | boolean
+  delete?: Prisma.CategoriesWhereInput | boolean
   connect?: Prisma.CategoriesWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CategoriesUpdateToOneWithWhereWithoutGearItemsInput, Prisma.CategoriesUpdateWithoutGearItemsInput>, Prisma.CategoriesUncheckedUpdateWithoutGearItemsInput>
 }
@@ -310,74 +345,54 @@ export type CategoriesUncheckedUpdateWithoutGearItemsInput = {
 }
 
 
-/**
- * Count Type CategoriesCountOutputType
- */
-
-export type CategoriesCountOutputType = {
-  gearItems: number
-}
-
-export type CategoriesCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  gearItems?: boolean | CategoriesCountOutputTypeCountGearItemsArgs
-}
-
-/**
- * CategoriesCountOutputType without action
- */
-export type CategoriesCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CategoriesCountOutputType
-   */
-  select?: Prisma.CategoriesCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * CategoriesCountOutputType without action
- */
-export type CategoriesCountOutputTypeCountGearItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.GearItemsWhereInput
-}
-
 
 export type CategoriesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   category?: boolean
-  gearItems?: boolean | Prisma.Categories$gearItemsArgs<ExtArgs>
-  _count?: boolean | Prisma.CategoriesCountOutputTypeDefaultArgs<ExtArgs>
+  gearitemId?: boolean
+  gearItems?: boolean | Prisma.GearItemsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["categories"]>
 
 export type CategoriesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   category?: boolean
+  gearitemId?: boolean
+  gearItems?: boolean | Prisma.GearItemsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["categories"]>
 
 export type CategoriesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   category?: boolean
+  gearitemId?: boolean
+  gearItems?: boolean | Prisma.GearItemsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["categories"]>
 
 export type CategoriesSelectScalar = {
   id?: boolean
   category?: boolean
+  gearitemId?: boolean
 }
 
-export type CategoriesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "category", ExtArgs["result"]["categories"]>
+export type CategoriesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "category" | "gearitemId", ExtArgs["result"]["categories"]>
 export type CategoriesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  gearItems?: boolean | Prisma.Categories$gearItemsArgs<ExtArgs>
-  _count?: boolean | Prisma.CategoriesCountOutputTypeDefaultArgs<ExtArgs>
+  gearItems?: boolean | Prisma.GearItemsDefaultArgs<ExtArgs>
 }
-export type CategoriesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type CategoriesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type CategoriesIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  gearItems?: boolean | Prisma.GearItemsDefaultArgs<ExtArgs>
+}
+export type CategoriesIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  gearItems?: boolean | Prisma.GearItemsDefaultArgs<ExtArgs>
+}
 
 export type $CategoriesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Categories"
   objects: {
-    gearItems: Prisma.$GearItemsPayload<ExtArgs>[]
+    gearItems: Prisma.$GearItemsPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     category: $Enums.Category
+    gearitemId: string
   }, ExtArgs["result"]["categories"]>
   composites: {}
 }
@@ -772,7 +787,7 @@ readonly fields: CategoriesFieldRefs;
  */
 export interface Prisma__CategoriesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  gearItems<T extends Prisma.Categories$gearItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Categories$gearItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GearItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  gearItems<T extends Prisma.GearItemsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GearItemsDefaultArgs<ExtArgs>>): Prisma.Prisma__GearItemsClient<runtime.Types.Result.GetResult<Prisma.$GearItemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -804,6 +819,7 @@ export interface Prisma__CategoriesClient<T, Null = never, ExtArgs extends runti
 export interface CategoriesFieldRefs {
   readonly id: Prisma.FieldRef<"Categories", 'String'>
   readonly category: Prisma.FieldRef<"Categories", 'Category'>
+  readonly gearitemId: Prisma.FieldRef<"Categories", 'String'>
 }
     
 
@@ -1027,7 +1043,7 @@ export type CategoriesCreateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * The data needed to create a Categories.
    */
-  data?: Prisma.XOR<Prisma.CategoriesCreateInput, Prisma.CategoriesUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.CategoriesCreateInput, Prisma.CategoriesUncheckedCreateInput>
 }
 
 /**
@@ -1058,6 +1074,10 @@ export type CategoriesCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    */
   data: Prisma.CategoriesCreateManyInput | Prisma.CategoriesCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriesIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1128,6 +1148,10 @@ export type CategoriesUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * Limit how many Categories to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriesIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1194,30 +1218,6 @@ export type CategoriesDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many Categories to delete.
    */
   limit?: number
-}
-
-/**
- * Categories.gearItems
- */
-export type Categories$gearItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the GearItems
-   */
-  select?: Prisma.GearItemsSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the GearItems
-   */
-  omit?: Prisma.GearItemsOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.GearItemsInclude<ExtArgs> | null
-  where?: Prisma.GearItemsWhereInput
-  orderBy?: Prisma.GearItemsOrderByWithRelationInput | Prisma.GearItemsOrderByWithRelationInput[]
-  cursor?: Prisma.GearItemsWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.GearItemsScalarFieldEnum | Prisma.GearItemsScalarFieldEnum[]
 }
 
 /**

@@ -2,7 +2,8 @@ model Categories {
 
   id String @id @default(uuid())
   category Category @default(fitness)
-  gearItems GearItems[]
+  gearitemId String @unique
+  gearItems GearItems @relation(fields: [gearitemId], references: [id])
 
   @@map("categories")
 }

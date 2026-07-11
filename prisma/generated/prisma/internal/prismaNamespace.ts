@@ -1119,7 +1119,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const CategoriesScalarFieldEnum = {
   id: 'id',
-  category: 'category'
+  category: 'category',
+  gearitemId: 'gearitemId'
 } as const
 
 export type CategoriesScalarFieldEnum = (typeof CategoriesScalarFieldEnum)[keyof typeof CategoriesScalarFieldEnum]
@@ -1138,7 +1139,6 @@ export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typ
 export const GearItemsScalarFieldEnum = {
   id: 'id',
   providerId: 'providerId',
-  categoriesId: 'categoriesId',
   name: 'name',
   description: 'description',
   image: 'image',
