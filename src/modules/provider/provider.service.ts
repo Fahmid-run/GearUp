@@ -50,7 +50,9 @@ const addGearItem = async (providerId: string, paylaod: IGearItem) => {
         }
       } ,
       availability,
-    },
+    }, include: {
+      category:true
+    }
   });
 
   return result;

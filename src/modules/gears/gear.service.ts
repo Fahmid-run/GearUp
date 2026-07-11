@@ -50,9 +50,11 @@ const getGearItems = async (query: Iquery) => {
       brand: query.brand,
     });
   }
-  if (query.categories) {
+  if (query.category) {
     andConditions.push({
-      categories: query.categories,
+      category: {
+        category:query.category
+      },
     });
   }
 
@@ -65,6 +67,9 @@ const getGearItems = async (query: Iquery) => {
     orderBy: {
       [sortBy]: sortOrder,
     },
+    include: {
+      category: true
+    }
   });
   return result;
 };
@@ -73,6 +78,9 @@ const getGearItemsById = async (gearId: string) => {
   const result = prisma.gearItems.findUnique({
     where: {
       id: gearId,
+    },
+    include: {
+      category: true,
     },
   });
 
