@@ -18,11 +18,14 @@ route.post(
     const customerId = req.user?.authorId as string;
     const gearItemId = req.params?.gearItemId as string;
     const { review, rating } = req.body;
-    checkExists(prisma.customer, customerId, 'User does not exists');
+    await checkExists(prisma.customer, customerId, 'User does not exists');
 
-    const rental = await prisma.rentalOrder.findUnique({
+    const rental = await prisma.rentalOrder.findFirst({
       where: {
         customerId,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
 
@@ -34,7 +37,7 @@ route.post(
       data: {
         review,
         rating,
-        customerId: customerId!,
+        customerId,
         gearItemId,
       },
     });
