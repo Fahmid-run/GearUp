@@ -7,7 +7,7 @@ const getAllUserFromDb = async () => {
       role: {
         not:"Admin"
       }
-    }
+    },
     omit: {
       password: true,
       
