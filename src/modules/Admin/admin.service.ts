@@ -2,7 +2,18 @@ import { User_Status } from '../../enums';
 import { prisma } from '../../lib/prisma';
 
 const getAllUserFromDb = async () => {
-  const result = await prisma.user.findMany({});
+  const result = await prisma.user.findMany({
+    where: {
+      role: {
+        not:"Admin"
+      }
+    }
+    omit: {
+      password: true,
+      
+    },
+    
+  });
 
   return result;
 };
