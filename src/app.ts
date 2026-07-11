@@ -10,11 +10,11 @@ import { providerROute } from './modules/provider/provider.route';
 import { reviewRoute } from './modules/Reviews/Review';
 
 import { rentalRoute } from './modules/rental/rental';
-import { gearRoute } from './modules/gears/gear.service';
 import { paymentRoute } from './modules/payments/payments.route';
 import { paymentController } from './modules/payments/payments.controller';
 import { adminRoute } from './modules/Admin/admin.route';
 import constants from './config';
+import { gearRoute } from './modules/gears/gear.route';
 
 const app: Application = express();
 

@@ -1,58 +1,80 @@
-import { Router } from 'express';
-import { catchAsync } from '../../utils/catchAsync';
-import { sendResponse } from '../../utils/sendResponse';
-import httpStatus from 'http-status';
 import { prisma } from '../../lib/prisma';
+import { GearItemsWhereInput } from '../../models';
+import { Iquery } from './gear.interface';
 
-const route = Router();
+const getGearItems = async (query: Iquery) => {
+  const limit = query.limit ? Number(query.limit) : 10;
+  const page = query.page ? Number(query.page) : 10;
+  const skip = (page - 1) * limit;
 
-route.get(
-  '/',
-  catchAsync(async (req, res, next) => {
-    const result = await prisma.gearItems.findMany({});
+  const sortBy = query.sortBy ? query.sortBy : 'createdAt';
+  const sortOrder = query.sortOrder ? query.sortOrder : 'desc';
 
-    sendResponse(res, {
-      success: true,
-      statusCode: httpStatus.OK,
-      message: 'Gear Items Retreived  Successfully',
-      data: result,
+  const andConditions: GearItemsWhereInput[] = [];
+
+  if (query.searchTerm) {
+    andConditions.push({
+      OR: [
+        {
+          name: {
+            contains: query.searchTerm,
+            mode: 'insensitive',
+          },
+          description: {
+            contains: query.searchTerm,
+            mode: 'insensitive',
+          },
+        },
+      ],
     });
-  }),
-);
+  }
 
-route.get(
-  '/:gearId',
-  catchAsync(async (req, res, next) => {
-    const gearId = req.params?.gearId as string;
-
-    const result = await prisma.gearItems.findUnique({
-      where: {
-        id: gearId,
-      },
+  if (query.name) {
+    andConditions.push({
+      name: query.name,
     });
-
-    sendResponse(res, {
-      success: true,
-      statusCode: httpStatus.OK,
-      message: 'Gear Item Retreived  Successfully',
-      data: result,
+  }
+  if (query.description) {
+    andConditions.push({
+      description: query.description,
     });
-  }),
-);
-
-route.get(
-  '/categories',
-  catchAsync(async (req, res, next) => {
-    const result = await prisma.categories.findMany({
+  }
+  if (query.rentalPricePerDay) {
+    andConditions.push({
+      rentalPricePerDay: Number(query.rentalPricePerDay),
     });
+  }
 
-    sendResponse(res, {
-      success: true,
-      statusCode: httpStatus.OK,
-      message: 'All Categories Gear Item Retrieved Successfully',
-      data: result,
+  if (query.brand) {
+    andConditions.push({
+      brand: query.brand,
     });
-  }),
-);
+  }
 
-export const gearRoute = route;
+  const result = await prisma.gearItems.findMany({
+    where: {
+      AND: andConditions,
+    },
+    take: limit,
+    skip: skip,
+    orderBy: {
+      [sortBy]: sortOrder,
+    },
+  });
+  return result;
+};
+
+const getGearItemsById = async (gearId: string) => {
+  const result = prisma.gearItems.findUnique({
+    where: {
+      id: gearId,
+    },
+  });
+
+  return result;
+};
+
+export const gearItemsServices = {
+  getGearItems,
+  getGearItemsById,
+};
