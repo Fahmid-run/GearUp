@@ -29,16 +29,7 @@ const getGearItems = async (query: Iquery) => {
     });
   }
 
-  if (query.name) {
-    andConditions.push({
-      name: query.name,
-    });
-  }
-  if (query.description) {
-    andConditions.push({
-      description: query.description,
-    });
-  }
+  
   if (query.rentalPricePerDay) {
     andConditions.push({
       rentalPricePerDay: Number(query.rentalPricePerDay),
@@ -59,14 +50,14 @@ const getGearItems = async (query: Iquery) => {
   }
 
   const result = await prisma.gearItems.findMany({
-    where: {
-      AND: andConditions,
-    },
-    take: limit,
-    skip: skip,
-    orderBy: {
-      [sortBy]: sortOrder,
-    },
+    // where: {
+    //   AND: andConditions,
+    // },
+    // take: limit,
+    // skip: skip,
+    // orderBy: {
+    //   [sortBy]: sortOrder,
+    // },
     include: {
       category: true
     }
